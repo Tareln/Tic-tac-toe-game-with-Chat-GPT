@@ -41,6 +41,7 @@ class GPTPlayer:
         load_dotenv(override=True)
         self.api_key = os.getenv('OPENAI_API_KEY')
         self.client = OpenAI()
+        self.model_name = "gpt-4.1-mini"
 
     def table_to_string(self, tab):
         return " ".join(tab)
@@ -60,7 +61,7 @@ class GPTPlayer:
 
     def chat_move(self, move, past_move_p, past_move_g):
         response = self.client.chat.completions.create(
-            model="gpt-4.1-mini",
+            model= self.model_name,
             messages=self.to_chat(move, past_move_p, past_move_g)
         )
         return response.choices[0].message.content
